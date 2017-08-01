@@ -1,6 +1,8 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
+const constants = require('./lib/contants.js');
+require('./require-file');
 
 let win;
 
@@ -22,6 +24,7 @@ const createWindow = () => {
   }))
 
   win.on('closed', () => win = null);
+  constants.window = win
 };
 
 app

@@ -1,0 +1,1 @@
+require('./lib/check_game_files.js')
