@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css?family=Orbitron:700|Oswald:500,600,700');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:focus {
+  outline: none;
+}
+
+html, body {
+  height: 100%;
+  background-color: rgb(21, 21, 21);
+  min-height: 400px;
+  min-width: 800px;
+}
+
+body {
+  font-family: 'Orbitron', 'verdana', sans-serif;
+}
+
+body > aside {
+  float: left;
+  height: 100%;
+  width: 208px;
+  font-size: 14px;
+  background-color: rgb(37, 37, 37);
+}
+
+body > aside > header {
+  background-image: url(/img/asidelogo.png);
+  background-color: rgb(183, 46, 38);
+  height: 64px;
+  line-height: 64px;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 600;
+  position: relative;
+}
+
+body > aside > header::after {
+  content: ' ';
+  height: 1px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 97, 80, 0.9);
+}
+
+body > aside #user {
+  background-color: rgb(51, 51, 51);
+  height: 48px;
+  line-height: 48px;
+  text-transform: uppercase;
+}
+
+body > aside #user > .icon {
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 64px;
+  float: left;
+}
+
+body > aside #user > .icon > img {
+  vertical-align: middle;
+}
+
+body > aside #user > span {
+  color: rgb(164, 154, 154);
+  font-size: 12px;
+  font-weight: 400;
+  font-family: sans-serif;
+}
+
+body > aside > header + #user + nav {
+  height: calc(100% - 48px - 64px);
+  max-height: 288px;
+}
+
+body > aside nav > ul {
+  height: 100%;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+}
+
+body > aside nav > ul li {
+  display: flex;
+  flex: 1;
+  color: rgb(164, 154, 154);
+  text-transform: uppercase;
+  align-items: stretch;
+}
+
+body > aside nav > ul li {
+  border-bottom: 1px solid rgb(30, 30, 30);
+}
+
+body > aside nav > ul li a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-left: 16px;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color;
+  background-color: rgb(37, 37, 37);
+}
+
+body > aside nav > ul li a:hover,
+body > aside nav > ul li a:focus {
+  background-color: rgb(28, 28, 28);
+}
+
+body > aside + main {
+  float: left;
+  width: calc(100% - 208px);
+}
+
+body > main {
+  height: 100%;
+  color: rgb(164, 154, 154);
+}
+
+body > main > header {
+  background-color: rgb(17, 17, 17);
+}
+
+body > main > header > #windowmenu,
+body > main > header > #windowmenu + #ticker {
+  height: 32px;
+}
+
+body > main > header > #ticker {
+  color: rgb(81, 81, 81);
+  background-color: rgb(34, 34, 34);
+  line-height: 32px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+#ticker h2 {
+  text-shadow: initial;
+  padding-right: 16px;
+  font-weight: 800;
+  color: rgb(204, 204, 204);
+  float: left;
+}
+
+#ticker h2::before {
+  content: url(/img/feedicon.png);
+  margin-right: 4px;
+}
+
+#ticker p {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: color 0.1s ease-in-out, text-shadow 0.1s ease-in-out;
+}
+
+#ticker p:hover,
+#ticker p:focus {
+  color: #fff;
+  text-shadow: 0 1px 6px #fff;
+}
+
+body > main > div.panel {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow: hidden;
+  height: calc(100% - 64px);
+  overflow-y: auto;
+}
+
+body > main > div.panel::-webkit-scrollbar {
+  width: 8px;
+  background-color: rgba(0, 0, 0, 0.0);
+}
+
+body > main > div.panel::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body > main h3 {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+ol.thumbnails {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  max-width: 1140px;
+}
+
+ol.thumbnails li {
+  width: calc((100% / 5) - 8px);
+  margin-right: 8px;
+  margin-bottom: 16px;
+}
+
+ol.thumbnails li figure {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border: 1px solid transparent;
+  transition: border 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+ol.thumbnails a:hover figure,
+ol.thumbnails a:active figure,
+ol.thumbnails a:focus figure {
+  border-color: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 14px rgba(6, 6, 6, 1);
+}
+
+ol.thumbnails li figure::after {
+  content: ' ';
+  display: block;
+  background-image: linear-gradient(180deg, rgba(32,32,32,0.4) 60%, rgba(50, 50, 50, 0.97) 95%);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: opacity 0.15s ease-in-out;
+  box-sizing: border-box;
+}
+
+ol.thumbnails a:hover figure::after,
+ol.thumbnails a:active figure::after,
+ol.thumbnails a:focus figure::after {
+  opacity: 0;
+}
+
+ol.thumbnails li figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+ol.thumbnails li {
+  position: relative;
+}
+
+ol.thumbnails li::after {
+  display: none;
+  content: attr(data-title);
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+  overflow: hidden;
+  background-color: rgba(15, 15, 15, 0.8);
+  padding: 16px 8px;
+  font-size: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+ol.thumbnails li:hover::after,
+ol.thumbnails li:active::after {
+  visibility: hidden;
+}

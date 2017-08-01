@@ -1,0 +1,15 @@
+{
+  "name": "revive-launcher",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "dependencies": {
+    "electron": "^1.6.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Michael Theriot",
+  "license": "ISC"
+}
