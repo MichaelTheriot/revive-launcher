@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
-const constants = require('./lib/contants.js');
+const constants = require('./lib/constants.js');
 require('./require-file');
 
 let win;
