@@ -1,58 +1,99 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Revive Launcher</title>
-    <link rel="stylesheet" type="text/css" href="../css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />
-    <script type="text/javascript" src="/js/main.js"></script>
-  </head>
-  <body>
-    <aside>
-      <header></header>
-      <div id="user">
-        <figure class="icon">
-          <img src="https://cdn.discordapp.com/avatars/234791807030919178/a0fcd2f275e7b07025bcad41db20e393.webp?size=256" height="32" width="32" />
-        </figure>
-        <span>Freeze-18</span>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#1">Games</a></li>
-          <li><a href="#2">Profile</a></li>
-          <li><a href="#3">Soldiers</a></li>
-          <li><a href="#4">Forums</a></li>
-          <li><a href="#5">Settings</a></li>
-          <li><a href="#6">Sign out</a></li>
-        </ul>
-      </nav>
+
+<head>
+  <title>Revive Launcher</title>
+  <link rel="stylesheet" type="text/css" href="./css/reset.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="./css/main2.css" />
+  <script src="./js/main.js"></script>
+  <script src="./js/UserController.js"></script>
+</head>
+
+<body ng-app="Revive">
+  <main>
+    <aside ng-controller="UserController">
+      <div id="logo">Revive</div>
+      <section id="user">
+        <div class="user" data-user="{{ user.username }}" data-status="{{ user.status }}">
+          <figure class="avatar">
+            <img alt="avatar" ng-src="https://www.gravatar.com/avatar/{{ user.avatar }}" draggable="false" />
+          </figure>
+          <span herf="{{site_url}}/profile/{{user.id}}" class="username">{{ user.username }}</span>
+        </div>
+      </section>
+      <section id="friends-list-title">
+        <div class="user">
+          <span class="username">Friends</span>
+        </div>
+      </section>
+      <section id="friends-list">
+        <nav>
+          <ol>
+            <li ng-repeat="friend in user.friends">
+              <div class="user" data-user="{{friend.user.username}}" data-status="{{friend.user.status}}">
+                <figure class="avatar">
+                  <img alt="avatar" ng-src="https://www.gravatar.com/avatar/{{ friend.user.avatar }}" draggable="false" />
+                </figure>
+                <span class="username" herf="{{site_url}}/profile/{{friend.user.id}}">{{friend.user.username}}</span>
+              </div>
+            </li>
+          </ol>
+        </nav>
+      </section>
     </aside>
-    <main>
-      <header>
-        <div id="windowmenu">
-          <aside>
-            <ol>
-              <li><a href="#7" id="button-close"></a></li>
-              <li><a href="#8" id="button-close"></a></li>
-            </ol>
-          </aside>
-        </div>
-        <div id="ticker">
-          <h2>News</h2>
-          <div id="ticker-text">
-            <p>lorem ipsum</p>
-          </div>
-        </div>
-      </header>
-      <div class="panel">
-        <h3>Games</h3>
-        <ol class="thumbnails">
-          <li><a href="#9"><figure><img src="https://media-www-battlefieldwebcore.spark.ea.com/content/battlefield-portal/en_US/games/battlefield-1942/_jcr_content/par/productdetailpage/boxArt.img.jpg" alt="Battlefield 1942" /></figure></a></li>
-          <li><a href="#10"><figure><img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Battlefield_Vietnam_Coverart.png/250px-Battlefield_Vietnam_Coverart.png" alt="Battlefield Vietnam" /></figure></a></li>
-          <li><a href="#11"><figure><img src="https://upload.wikimedia.org/wikipedia/en/6/62/Battlefield2Cover.jpg" alt="Battlefield 2" /></figure></a></li>
-          <li><a href="#12"><figure><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Battlefield_2142_box_art.jpg" alt="Battlefield 2142" /></figure></a></li>
-          <li><a href="#13"><figure><img src="https://www.lagzero.net/wp-content/gallery/battlefield-heroes/944604_20080425_screen006.jpg" alt="Battlefield Heroes" /></figure></a></li>
-        </ol>
-      </div>
-    </main>
-  </body>
+    <nav id="window-bar">
+      <ol>
+        <li><button id="button-minimize">&#128469;</button></li>
+        <li><button id="button-overlap">&#128471;</button></li>
+        <li><button id="button-maximize">&#128470;</button></li>
+        <li><button id="button-close">&#128473;</button></li>
+      </ol>
+    </nav>
+    <div id="ticker-bar">
+      <ol>
+        <li>revive heroes is now out</li>
+        <li>bruno banned for the 268th time</li>
+        <li>discord.js is an awful library</li>
+      </ol>
+    </div>
+    <section id="content">
+      <h2 data-num="6" data-den="18">Achievements</h2>
+      <ul class="tiles">
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <h2 data-num="3" data-den="3" data-unit="Installed">Games</h2>
+      <ul class="tiles large">
+        <li data-status="installed">
+          <figure><img src="https://upload.wikimedia.org/wikipedia/en/6/62/Battlefield2Cover.jpg" draggable="false" /></figure>
+        </li>
+        <li data-status="uninstalled">
+          <figure><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Battlefield_2142_box_art.jpg" alt="Battlefield 2142" draggable="false"
+            /></figure>
+        </li>
+        <li data-status="unavailable">
+          <figure><img src="https://www.lagzero.net/wp-content/gallery/battlefield-heroes/944604_20080425_screen006.jpg" alt="Battlefield Heroes"
+              draggable="false" /></figure>
+        </li>
+      </ul>
+    </section>
+  </main>
+</body>
+
 </html>

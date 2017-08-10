@@ -1,10 +1,10 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
-const constants = require('./lib/constants.js');
+global.constants = require('./lib/constants.js');
 require('./require-file');
-
 let win;
+
 
 const createWindow = () => {
   win = new BrowserWindow({
@@ -18,13 +18,12 @@ const createWindow = () => {
   });
 
   win.loadURL(url.format({
-    pathname: path.join(__dirname, '/web/index2.html'),
+    pathname: path.join(__dirname, '/web/index.html'),
     protocol: 'file:',
     slashes: true
   }))
 
   win.on('closed', () => win = null);
-  constants.window = win
 };
 
 app
