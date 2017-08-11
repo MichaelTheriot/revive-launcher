@@ -3,24 +3,20 @@
 
 <head>
   <title>Revive Launcher</title>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vue-resource"></script>
   <link rel="stylesheet" type="text/css" href="./css/reset.css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="./css/main2.css" />
+  <link rel="stylesheet" type="text/css" href="./css/main.css" />
   <script src="./js/main.js"></script>
   <script src="./js/UserController.js"></script>
 </head>
 
-<body ng-app="Revive">
+<body>
   <main>
-    <aside ng-controller="UserController">
+    <aside id="aside">
       <div id="logo">Revive</div>
       <section id="user">
-        <div class="user" data-user="{{ user.username }}" data-status="{{ user.status }}">
-          <figure class="avatar">
-            <img alt="avatar" ng-src="https://www.gravatar.com/avatar/{{ user.avatar }}" draggable="false" />
-          </figure>
-          <span herf="{{site_url}}/profile/{{user.id}}" class="username">{{ user.username }}</span>
-        </div>
+        <user v-bind:user="user" />
       </section>
       <section id="friends-list-title">
         <div class="user">
@@ -30,13 +26,8 @@
       <section id="friends-list">
         <nav>
           <ol>
-            <li ng-repeat="friend in user.friends">
-              <div class="user" data-user="{{friend.user.username}}" data-status="{{friend.user.status}}">
-                <figure class="avatar">
-                  <img alt="avatar" ng-src="https://www.gravatar.com/avatar/{{ friend.user.avatar }}" draggable="false" />
-                </figure>
-                <span class="username" herf="{{site_url}}/profile/{{friend.user.id}}">{{friend.user.username}}</span>
-              </div>
+            <li v-for="friend in user.friends">
+              <user v-bind:user="friend.user" />
             </li>
           </ol>
         </nav>

@@ -5,21 +5,39 @@ const getCachedUser = function () {
         user = JSON.parse(user);
     return user;
 }
+Vue.http.headers.common.Authorization = "Bearer " + localStorage.getItem("access_token");
 
-const UserController = function ($scope, $http) {
-    $http.defaults.headers.common.Authorization = "Bearer " + localStorage.getItem("access_token");
-    $scope.user = getCachedUser();
-    $scope.site_url = site_url;
-    $http.get(site_url + "/api/me")
-        .then(response => {
-            response.data.status = response.data.online ? "online" : "offline";
-            $scope.user = response.data;
-            localStorage.setItem("user", JSON.stringify(response.data));
-        })
-        .catch(() => {
-            let user = getCachedUser();
-            user.status = "offline";
-            $scope.user = user;
-        });
-}
-angular.module("Revive", []).controller('UserController', ['$scope', '$http', UserController]);
+window.addEventListener('load', function () {
+    var aside = new Vue({
+        el: '#aside',
+        data: {
+            user: getCachedUser(),
+            site_url: site_url
+        },
+        methods: {
+            getCachedUser: getCachedUser,
+            onProfileClick: () => {
+                if (isNode)
+                    require('electron').shell.openExternal(this.site_url + '/profile/' + this.user.id);
+                else
+                    location = this.site_url + '/profile/' + this.user.id;
+            }
+        },
+        created: function () {
+            this.$http.get(site_url + "/api/me")
+                .then(response => {
+                    this.user = response.data;
+                    localStorage.setItem("user", JSON.stringify(response.data));
+                })
+                .catch(() => {
+                    let user = getCachedUser();
+                    user.online = false;
+                    this.user = user;
+                });
+        }
+    })
+});
+Vue.component('user', {
+    props: ['user'],
+    template: "<div class=\"user\" v-on:click='onProfileClick()' :data-status=\"user.online?\'online\':\'offline\'\">\r\n    <figure class=\"avatar\"><img alt=\"avatar\" :src=\"\'https:\/\/www.gravatar.com\/avatar\/\'+user.avatar\" draggable=\"false\" \/> <\/figure>\r\n    <span class=\"username\">{{ user.username }}<\/span>\r\n<\/div>"
+})
