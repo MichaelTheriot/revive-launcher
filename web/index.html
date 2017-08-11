@@ -66,19 +66,23 @@
         <li></li>
       </ul>
       <h2 data-num="3" data-den="3" data-unit="Installed">Games</h2>
-      <ul class="tiles large">
-        <li data-status="installed">
-          <figure><img src="https://upload.wikimedia.org/wikipedia/en/6/62/Battlefield2Cover.jpg" draggable="false" /></figure>
-        </li>
-        <li data-status="uninstalled">
-          <figure><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Battlefield_2142_box_art.jpg" alt="Battlefield 2142" draggable="false"
-            /></figure>
-        </li>
-        <li data-status="unavailable">
-          <figure><img src="https://www.lagzero.net/wp-content/gallery/battlefield-heroes/944604_20080425_screen006.jpg" alt="Battlefield Heroes"
-              draggable="false" /></figure>
-        </li>
-      </ul>
+      <div id="games">
+
+        <ul class="tiles large">
+          <li data-status="installed" @click="showModal = true">
+            <figure><img src="https://upload.wikimedia.org/wikipedia/en/6/62/Battlefield2Cover.jpg" draggable="false" /></figure>
+          </li>
+          <li data-status="uninstalled" @click="showModal = true">
+            <figure><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Battlefield_2142_box_art.jpg" alt="Battlefield 2142"
+                draggable="false" /></figure>
+          </li>
+          <li data-status="unavailable" @click="showModal = true">
+            <figure><img src="https://www.lagzero.net/wp-content/gallery/battlefield-heroes/944604_20080425_screen006.jpg" alt="Battlefield Heroes"
+                draggable="false" /></figure>
+          </li>
+        </ul>
+        <modal v-if="showModal" @close="showModal = false"></modal>
+      </div>
     </section>
   </main>
   <template id="user-template">
@@ -124,6 +128,7 @@
   <script src="./js/main.js "></script>
   <script src="./js/components.js "></script>
   <script src="./js/user.js "></script>
+  <script src="./js/soldier.js "></script>
 </body>
 
 </html>

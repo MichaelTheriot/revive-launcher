@@ -4,6 +4,6 @@ new Vue({
     data: {
         showModal: false,
         currentSoldier: false,
-        soldiers: getCatchedUser().soldiers
+        soldiers: getCachedUser().soldiers
     }
 })
