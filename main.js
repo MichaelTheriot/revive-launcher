@@ -47,7 +47,14 @@ app
       /**
        * the callback should be called. you can optionally give it a parameter to the filePath if any
        */
-      request.url = request.url.split("revive://")[1];
+      let url = request.url.split("revive://")[1];
+      url = url.split("/");
+      if (url[0].toLowerCase() === "launchgame") {
+        ipcMain.emit('launchGame', {
+          game: url[1],
+          soldier: url[2]
+        })
+      }
       callback();
     })
   });

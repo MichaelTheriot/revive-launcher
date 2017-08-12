@@ -85,7 +85,7 @@
           </li>
         </ul>
 
-        <b-modal id="launch-game" title="Select Soldier" @ok="launchGame" ok-title="Launch Game">
+        <b-modal v-cloak id="launch-game" title="Select Soldier" @ok="launchGame" ok-title="Launch Game">
           <form @submit.stop.prevent="submit">
             <select v-model="currentSoldier">
               <option v-for="soldier of soldiers.filter((s)=>s.game == currentGame)">{{soldier.nickname}}</option>

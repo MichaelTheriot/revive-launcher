@@ -443,3 +443,4 @@ body > main > section h6[data-num][data-den]::after {
 #friends-list-title > div{
   cursor: initial;
 }
+[v-cloak] { display:none; }

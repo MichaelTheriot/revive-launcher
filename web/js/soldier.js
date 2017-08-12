@@ -8,13 +8,13 @@ new Vue({
     },
     methods: {
         launchBFH: function () {
-            if (this.isNode)
+            if (isNode)
                 require('electron').shell.openExternal("https://heroesawaken.com");
             else
                 location = "https://heroesawaken.com";
         },
         launchGame: function () {
-            if (this.isNode)
+            if (isNode)
                 require('electron').ipcRenderer.emit('launchGame', {
                     game: this.currentGame,
                 })
