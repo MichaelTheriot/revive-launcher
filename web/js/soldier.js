@@ -2,7 +2,6 @@ var soldiers = getCachedUser().soldiers;
 new Vue({
     el: '#games',
     data: {
-        showModal: false,
         currentSoldier: soldiers[0].nickname,
         soldiers: soldiers,
         currentGame: null
@@ -18,7 +17,6 @@ new Vue({
             if (this.isNode)
                 require('electron').ipcRenderer.emit('launchGame', {
                     game: this.currentGame,
-
                 })
             else
                 location = `revive://launchGame/${this.currentGame}/${this.currentSoldier}`;

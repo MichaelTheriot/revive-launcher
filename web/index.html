@@ -3,6 +3,9 @@
 
 <head>
   <title>Revive Launcher</title>
+  <link type="text/css" rel="stylesheet" href="http://unpkg.com/bootstrap@next/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="http://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+
   <link rel="stylesheet" type="text/css" href="./css/reset.css" />
   <link rel="stylesheet" type="text/css" href="./css/main.css" />
 </head>
@@ -69,10 +72,10 @@
       <div id="games">
 
         <ul class="tiles large">
-          <li data-status="installed" @click="currentGame = 'battlefield2';showModal = true">
+          <li data-status="installed" v-b-modal.launch-game @click="currentGame = 'battlefield2'">
             <figure><img src="https://upload.wikimedia.org/wikipedia/en/6/62/Battlefield2Cover.jpg" draggable="false" /></figure>
           </li>
-          <li data-status="uninstalled" @click="currentGame = 'stella';showModal = true">
+          <li data-status="uninstalled" v-b-modal.launch-game @click="currentGame = 'stella'">
             <figure><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Battlefield_2142_box_art.jpg" alt="Battlefield 2142"
                 draggable="false" /></figure>
           </li>
@@ -81,36 +84,14 @@
                 draggable="false" /></figure>
           </li>
         </ul>
-        <transition name="modal" v-if="showModal">
-          <div class="modal-mask">
-            <div class="modal-wrapper">
-              <div class="modal-container">
 
-                <div class="modal-header">
-                  <slot name="header">
-                    Select Soldier
-                  </slot>
-                </div>
-
-                <div class="modal-body">
-                  <slot name="body">
-                    <select v-model="currentSoldier">
+        <b-modal id="launch-game" title="Select Soldier" @ok="launchGame" ok-title="Launch Game">
+          <form @submit.stop.prevent="submit">
+            <select v-model="currentSoldier">
               <option v-for="soldier of soldiers.filter((s)=>s.game == currentGame)">{{soldier.nickname}}</option>
-				</select>
-                  </slot>
-                </div>
-
-                <div class="modal-footer">
-                  <slot name="footer">
-                    <button @click="showModal = false">
-                Launch Game
-              </button>
-                  </slot>
-                </div>
-              </div>
-            </div>
-          </div>
-        </transition>
+				    </select>
+          </form>
+        </b-modal>
       </div>
     </section>
   </main>
@@ -120,7 +101,10 @@
       <span class="username">{{ user.username }}</span>
     </div>
   </template>
+  <script src="http://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+  <script src="http://unpkg.com/tether@latest/dist/js/tether.min.js"></script>
   <script src="./js/vue.js"></script>
+  <script src="http://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
   <script src="https://unpkg.com/vue-resource"></script>
   <script src="./js/main.js"></script>
   <script src="./js/components.js"></script>
