@@ -3,6 +3,8 @@
 
 <head>
   <title>Revive Launcher</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+    crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/reset.css" />
   <link rel="stylesheet" type="text/css" href="./css/main.css" />
 </head>
@@ -69,66 +71,56 @@
       <div id="games">
 
         <ul class="tiles large">
-          <li data-status="installed" @click="showModal = true">
+          <li data-status="installed" @click="currentGame = 'battlefield2';showModal = true">
             <figure><img src="https://upload.wikimedia.org/wikipedia/en/6/62/Battlefield2Cover.jpg" draggable="false" /></figure>
           </li>
-          <li data-status="uninstalled" @click="showModal = true">
+          <li data-status="uninstalled" @click="currentGame = 'stella';showModal = true">
             <figure><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Battlefield_2142_box_art.jpg" alt="Battlefield 2142"
                 draggable="false" /></figure>
           </li>
-          <li data-status="unavailable" @click="showModal = true">
+          <li data-status="unavailable" @click="launchBFH">
             <figure><img src="https://www.lagzero.net/wp-content/gallery/battlefield-heroes/944604_20080425_screen006.jpg" alt="Battlefield Heroes"
                 draggable="false" /></figure>
           </li>
         </ul>
-        <modal v-if="showModal" @close="showModal = false"></modal>
+        <soldier-select-modal v-if="showModal" @close="showModal = false"></soldier-select-modal>
       </div>
     </section>
   </main>
   <template id="user-template">
-    <div class="user" :onClick='"onProfileClick("+user.id+")"' :data-status=" user.online? 'online': 'offline' ">
-      <figure class="avatar "><img alt="avatar " :src=" 'https://www.gravatar.com/avatar/'+user.avatar " draggable="false " /> </figure>
-      <span class="username ">{{ user.username }}</span>
+    <div class="user" :onClick='"onProfileClick("+user.id+")"' :data-status=" user.online? 'online': 'offline'">
+      <figure class="avatar"><img alt="avatar" :src=" 'https://www.gravatar.com/avatar/'+user.avatar" draggable="false" /> </figure>
+      <span class="username">{{ user.username }}</span>
     </div>
   </template>
-  <template id="soldier-select-modal-template ">
-    <transition name="modal ">
-      <div class="modal-mask ">
-        <div class="modal-wrapper ">
-          <div class="modal-container ">
-
-            <div class="modal-header ">
-              <slot name="header ">
-                Select Soldier
-              </slot>
-            </div>
-
-            <div class="modal-body ">
-              <slot name="body ">
-                <select v-model:currentSoldier>
-              <option v-for="soldier in soldiers " :value="soldier.nickname ">{{soldier.nickname}}</option>
+  <template id="soldier-select-modal-template">
+    <div class="modal fade">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Select Soldier</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+          </div>
+          <div class="modal-body">
+            <select v-model:currentSoldier>
+              <option v-for="'soldier of soldiers.filter((s)=>s.game == game)">{{soldier.nickname}}</option>
             </select>
-              </slot>
-            </div>
-
-            <div class="modal-footer ">
-              <slot name="footer ">
-                <button class="modal-default-button " @click="$emit( 'close') ">
-                Launch
-              </button>
-              </slot>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" @click="launchGame(); showModal = false">Launch Game</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
-    </transition>
+    </div>
   </template>
-  <script src="https://unpkg.com/vue "></script>
-  <script src="https://unpkg.com/vue-resource "></script>
-  <script src="./js/main.js "></script>
-  <script src="./js/components.js "></script>
-  <script src="./js/user.js "></script>
-  <script src="./js/soldier.js "></script>
+  <script src="./js/vue.js"></script>
+  <script src="https://unpkg.com/vue-resource"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/components.js"></script>
+  <script src="./js/user.js"></script>
+  <script src="./js/soldier.js"></script>
 </body>
 
 </html>

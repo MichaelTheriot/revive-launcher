@@ -6,6 +6,7 @@ const getCachedUser = function () {
     return user;
 }
 const onProfileClick = (id) => {
+    const isNode = ('process' in this) && ('versions' in this.process) && ('node' in this.process.versions);
     if (isNode)
         require('electron').shell.openExternal(site_url + '/profile/' + user.id);
     else
@@ -16,12 +17,7 @@ Vue.http.headers.common.Authorization = "Bearer " + localStorage.getItem("access
 var aside = new Vue({
     el: '#aside',
     data: {
-        user: getCachedUser(),
-        site_url: site_url
-    },
-    methods: {
-        getCachedUser: getCachedUser,
-        onProfileClick: onProfileClick
+        user: getCachedUser()
     },
     created: function () {
         this.$http.get(site_url + "/api/me")
