@@ -17,6 +17,7 @@ new Vue({
             if (isNode)
                 require('electron').ipcRenderer.emit('launchGame', {
                     game: this.currentGame,
+                    soldier: this.currentSoldier
                 })
             else
                 location = `revive://launchGame/${this.currentGame}/${this.currentSoldier}`;
