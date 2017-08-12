@@ -3,8 +3,6 @@
 
 <head>
   <title>Revive Launcher</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
-    crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./css/reset.css" />
   <link rel="stylesheet" type="text/css" href="./css/main.css" />
 </head>
@@ -71,7 +69,7 @@
       <div id="games">
 
         <ul class="tiles large">
-          <li data-status="installed" @click="showModal = true;currentGame = 'battlefield2'">
+          <li data-status="installed" @click="currentGame = 'battlefield2';showModal = true">
             <figure><img src="https://upload.wikimedia.org/wikipedia/en/6/62/Battlefield2Cover.jpg" draggable="false" /></figure>
           </li>
           <li data-status="uninstalled" @click="currentGame = 'stella';showModal = true">
@@ -83,25 +81,36 @@
                 draggable="false" /></figure>
           </li>
         </ul>
-        <div class="modal fade" v-if="showModal">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Select Soldier</h5>
-                <button type="button" @click="showModal = false" class="close " data-dismiss="modal " aria-label="Close " />
-              </div>
-              <div class="modal-body ">
-                <select v-model="currentSoldier">
+        <transition name="modal" v-if="showModal">
+          <div class="modal-mask">
+            <div class="modal-wrapper">
+              <div class="modal-container">
+
+                <div class="modal-header">
+                  <slot name="header">
+                    Select Soldier
+                  </slot>
+                </div>
+
+                <div class="modal-body">
+                  <slot name="body">
+                    <select v-model="currentSoldier">
               <option v-for="soldier of soldiers.filter((s)=>s.game == currentGame)">{{soldier.nickname}}</option>
-            </select>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" @click="launchGame(); showModal = false">Launch Game</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="showModal = false">Close</button>
+				</select>
+                  </slot>
+                </div>
+
+                <div class="modal-footer">
+                  <slot name="footer">
+                    <button @click="showModal = false">
+                Launch Game
+              </button>
+                  </slot>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </transition>
       </div>
     </section>
   </main>
