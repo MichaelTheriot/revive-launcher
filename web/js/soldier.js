@@ -9,15 +9,13 @@ new Vue({
     },
     methods: {
         launchBFH: function () {
-            const isNode = ('process' in this) && ('versions' in this.process) && ('node' in this.process.versions);
-            if (isNode)
+            if (this.isNode)
                 require('electron').shell.openExternal("https://heroesawaken.com");
             else
                 location = "https://heroesawaken.com";
         },
         launchGame: function () {
-            const isNode = ('process' in this) && ('versions' in this.process) && ('node' in this.process.versions);
-            if (isNode)
+            if (this.isNode)
                 require('electron').ipcRenderer.emit('launchGame', {
                     game: this.currentGame,
 

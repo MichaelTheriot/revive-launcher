@@ -6,8 +6,7 @@ const getCachedUser = function () {
     return user;
 }
 const onProfileClick = (id) => {
-    const isNode = ('process' in this) && ('versions' in this.process) && ('node' in this.process.versions);
-    if (isNode)
+    if (this.isNode)
         require('electron').shell.openExternal(site_url + '/profile/' + user.id);
     else
         location = site_url + '/profile/' + id;
