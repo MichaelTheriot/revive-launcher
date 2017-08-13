@@ -1,58 +1,115 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Revive Launcher</title>
-    <link rel="stylesheet" type="text/css" href="../css/reset.css" />
-    <link rel="stylesheet" type="text/css" href="../css/main.css" />
-    <script type="text/javascript" src="/js/main.js"></script>
-  </head>
-  <body>
-    <aside>
-      <header></header>
-      <div id="user">
-        <figure class="icon">
-          <img src="https://cdn.discordapp.com/avatars/234791807030919178/a0fcd2f275e7b07025bcad41db20e393.webp?size=256" height="32" width="32" />
-        </figure>
-        <span>Freeze-18</span>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="#1">Games</a></li>
-          <li><a href="#2">Profile</a></li>
-          <li><a href="#3">Soldiers</a></li>
-          <li><a href="#4">Forums</a></li>
-          <li><a href="#5">Settings</a></li>
-          <li><a href="#6">Sign out</a></li>
-        </ul>
-      </nav>
+
+<head>
+  <title>Revive Launcher</title>
+  <link type="text/css" rel="stylesheet" href="http://unpkg.com/bootstrap@next/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="http://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="./css/reset.css" />
+  <link rel="stylesheet" type="text/css" href="./css/main.css" />
+</head>
+
+<body>
+  <main>
+    <aside id="aside">
+      <div id="logo">Revive</div>
+      <section id="user">
+        <user v-bind:user="user" />
+      </section>
+      <section id="friends-list-title">
+        <div class="user">
+          <span class="username">Friends</span>
+        </div>
+      </section>
+      <section id="friends-list">
+        <nav>
+          <ol>
+            <li v-for="friend in user.friends">
+              <user v-bind:user="friend.user" />
+            </li>
+          </ol>
+        </nav>
+      </section>
     </aside>
-    <main>
-      <header>
-        <div id="windowmenu">
-          <aside>
-            <ol>
-              <li><a href="#7" id="button-close"></a></li>
-              <li><a href="#8" id="button-close"></a></li>
-            </ol>
-          </aside>
-        </div>
-        <div id="ticker">
-          <h2>News</h2>
-          <div id="ticker-text">
-            <p>lorem ipsum</p>
-          </div>
-        </div>
-      </header>
-      <div class="panel">
-        <h3>Games</h3>
-        <ol class="thumbnails">
-          <li><a href="#9"><figure><img src="https://media-www-battlefieldwebcore.spark.ea.com/content/battlefield-portal/en_US/games/battlefield-1942/_jcr_content/par/productdetailpage/boxArt.img.jpg" alt="Battlefield 1942" /></figure></a></li>
-          <li><a href="#10"><figure><img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Battlefield_Vietnam_Coverart.png/250px-Battlefield_Vietnam_Coverart.png" alt="Battlefield Vietnam" /></figure></a></li>
-          <li><a href="#11"><figure><img src="https://upload.wikimedia.org/wikipedia/en/6/62/Battlefield2Cover.jpg" alt="Battlefield 2" /></figure></a></li>
-          <li><a href="#12"><figure><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Battlefield_2142_box_art.jpg" alt="Battlefield 2142" /></figure></a></li>
-          <li><a href="#13"><figure><img src="https://www.lagzero.net/wp-content/gallery/battlefield-heroes/944604_20080425_screen006.jpg" alt="Battlefield Heroes" /></figure></a></li>
-        </ol>
+    <nav id="window-bar">
+      <ol>
+        <li><button id="button-minimize">&#128469;</button></li>
+        <li><button id="button-overlap">&#128471;</button></li>
+        <li><button id="button-maximize">&#128470;</button></li>
+        <li><button id="button-close">&#128473;</button></li>
+      </ol>
+    </nav>
+    <div id="ticker-bar">
+      <ol>
+        <li>revive heroes is now out</li>
+        <li>bruno banned for the 268th time</li>
+        <li>discord.js is an awful library</li>
+      </ol>
+    </div>
+    <section id="content">
+      <h2 data-num="6" data-den="18">Achievements</h2>
+      <ul class="tiles">
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li class="highlight"></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+      <h2 data-num="3" data-den="3" data-unit="Installed">Games</h2>
+      <div id="games">
+
+        <ul class="tiles large">
+          <li data-status="installed" v-b-modal.launch-game @click="currentGame = 'battlefield2'">
+            <figure><img src="https://upload.wikimedia.org/wikipedia/en/6/62/Battlefield2Cover.jpg" draggable="false" /></figure>
+          </li>
+          <li data-status="uninstalled" v-b-modal.launch-game @click="currentGame = 'stella'">
+            <figure><img src="https://upload.wikimedia.org/wikipedia/en/3/30/Battlefield_2142_box_art.jpg" alt="Battlefield 2142"
+                draggable="false" /></figure>
+          </li>
+          <li data-status="unavailable" @click="launchBFH">
+            <figure><img src="https://www.lagzero.net/wp-content/gallery/battlefield-heroes/944604_20080425_screen006.jpg" alt="Battlefield Heroes"
+                draggable="false" /></figure>
+          </li>
+        </ul>
+
+        <b-modal v-cloak id="launch-game" title="Select Soldier" @ok="launchGame" ok-title="Launch Game">
+          <form @submit.stop.prevent="submit">
+            <select v-model="currentSoldier">
+              <option v-for="soldier of soldiers.filter((s)=>s.game == currentGame)">{{soldier.nickname}}</option>
+				    </select>
+          </form>
+        </b-modal>
       </div>
-    </main>
-  </body>
+    </section>
+  </main>
+  <template id="user-template">
+    <div class="user" :onClick='"onProfileClick("+user.id+")"' :data-status=" user.online? 'online': 'offline'">
+      <figure class="avatar"><img alt="avatar" :src=" 'https://www.gravatar.com/avatar/'+user.avatar" draggable="false" /> </figure>
+      <span class="username">{{ user.username }}</span>
+    </div>
+  </template>
+  <script src="http://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+  <script src="http://unpkg.com/tether@latest/dist/js/tether.min.js"></script>
+  <script src="./js/vue.js"></script>
+  <script src="http://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+  <script src="https://unpkg.com/vue-resource"></script>
+  <script src="./js/main.js"></script>
+  <script src="./js/components.js"></script>
+  <script src="./js/user.js"></script>
+  <script src="./js/soldier.js"></script>
+</body>
+
 </html>
